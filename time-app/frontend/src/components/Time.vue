@@ -19,7 +19,7 @@ export default {
   },
   created: async function () {
     this.startInterval()
-    const res = await fetch('http://localhost:5555/times')
+    const res = await fetch('http://localhost:8081/times')
     const json = await res.json()
     if (json.length) this.savedTimes = json
   },
@@ -30,7 +30,7 @@ export default {
   <div class="greetings">
     <h1 class="green">{{ currentTime }}</h1>
     <h3>Нажмите кнопку для сохранения в базе данных</h3>
-    <button @click="saveTime">Сохранить время</button>
+    <button @click="saveTime">Зберегти час</button>
     <h3 v-if="savedTimes.length && showSavedTimes">
       Ранее сохраненные времена:
     </h3>

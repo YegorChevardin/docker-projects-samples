@@ -3,16 +3,22 @@ services:
   mysql:
     image: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: 'password'
-      MYSQL_PASSWORD: 'password'
-      MYSQL_USER: 'time_user'
-      MYSQL_DATABASE: 'time_db'
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASS}
+      MYSQL_DATABASE: ${MYSQL_DB_NAME}
+      MYSQL_USER: ${MYSQL_USERNAME}
+      MYSQL_PASSWORD: ${MYSQL_PASS}
+      MYSQL_TCP_PORT: '3306'
+    volumes:
+      - mysql_volume:/var/lib/mysql
     restart: always
   frontend:
     build: ./frontend
     ports: 
       - '3000:3000'
     restart: always
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
   backend:
     build: ./api
     ports: 
@@ -20,8 +26,19 @@ services:
     restart: always
     depends_on:
       - mysql
+    volumes:
+      - /app/node_modules
+      - ./api:/app
+    environment:
+      MYSQ_HOST: mysql
+      MYSQL_DB: ${MYSQL_DB_NAME}
+      MYSQL_USER: ${MYSQL_USERNAME}
+      MYSQL_PASS: ${MYSQL_PASS}
+      MYSQ_PORT: '3306'
   adminer:
     ports: 
       - '8080:8080'
     image: adminer
     restart: always
+volumes:
+  mysql_volume:
