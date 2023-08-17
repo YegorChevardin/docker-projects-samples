@@ -7,7 +7,7 @@ import {
   deleteRecord,
 } from './src/utils/records.mjs'
 
-const PORT = 5000
+const PORT = 8081
 
 const app = express()
 app.use(bodyParser.json())
