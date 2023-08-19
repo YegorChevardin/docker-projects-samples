@@ -1,12 +1,10 @@
 import mysql from 'mysql2'
 
-const MYSQL_HOST = process.env.MYSQL_HOST || "mysql";
-const MYSQL_USER = process.env.MYSQL_USER || "times_user";
-const MYSQL_PASS = process.env.MYSQL_PASS || "password";
-const MYSQL_PORT = process.env.MYSQL_PORT || "3306";
-const MYSQL_DB = process.env.MYSQL_DB || "times_db";
-
-console.log(process.env);
+const MYSQL_HOST = String(process.env.MYSQL_HOST);
+const MYSQL_USER = String(process.env.MYSQL_USER);
+const MYSQL_PASS = String(process.env.MYSQL_PASS);
+const MYSQL_PORT = String(process.env.MYSQL_PORT);
+const MYSQL_DB = String(process.env.MYSQL_DB);
 
 const pool = mysql.createPool({
   connectionLimit: 500,
@@ -15,7 +13,9 @@ const pool = mysql.createPool({
   user: MYSQL_USER,
   password: MYSQL_PASS,
   database: MYSQL_DB,
-})
+});
+
+console.log(pool);
 
 const CREATE_TIMES_TABLE_SQL = `CREATE TABLE IF NOT EXISTS times (
   id INT AUTO_INCREMENT PRIMARY KEY,

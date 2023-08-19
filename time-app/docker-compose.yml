@@ -30,11 +30,11 @@ services:
       - /app/node_modules
       - ./api:/app
     environment:
-      MYSQ_HOST: mysql
+      MYSQL_HOST: mysql
       MYSQL_DB: ${MYSQL_DB_NAME}
       MYSQL_USER: ${MYSQL_USERNAME}
       MYSQL_PASS: ${MYSQL_PASS}
-      MYSQ_PORT: '3306'
+      MYSQL_PORT: '3306'
   adminer:
     ports: 
       - '8080:8080'
