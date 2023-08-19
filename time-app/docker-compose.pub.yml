@@ -1,0 +1,44 @@
+version: '3'
+services:
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASS}
+      MYSQL_DATABASE: ${MYSQL_DB_NAME}
+      MYSQL_USER: ${MYSQL_USERNAME}
+      MYSQL_PASSWORD: ${MYSQL_PASS}
+      MYSQL_TCP_PORT: '3306'
+    volumes:
+      - mysql_volume_pub:/var/lib/mysql
+    restart: always
+  frontend:
+    image: yegorchevardin/time-app-frontend-dev:0.0.1
+    ports: 
+      - '3000:3000'
+    restart: always
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
+  backend:
+    image: yegorchevardin/time-app-api-dev:0.0.1
+    ports: 
+      - '8081:8081'
+    restart: always
+    depends_on:
+      - mysql
+    volumes:
+      - /app/node_modules
+      - ./api:/app
+    environment:
+      MYSQ_HOST: mysql
+      MYSQL_DB: ${MYSQL_DB_NAME}
+      MYSQL_USER: ${MYSQL_USERNAME}
+      MYSQL_PASS: ${MYSQL_PASS}
+      MYSQ_PORT: '3306'
+  adminer:
+    ports: 
+      - '8080:8080'
+    image: adminer
+    restart: always
+volumes:
+  mysql_volume_pub:
