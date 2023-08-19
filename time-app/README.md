@@ -9,9 +9,11 @@ To run with custom environment variables - create `.env` in the root directory o
 
 Example of `.env` file:
 ```txt
-MYSQL_DB: your db name
-MYSQL_USER: your db username
-MYSQL_PASS: your db password
+MYSQL_DB_NAME=timeDb
+MYSQL_USERNAME=anna
+MYSQL_PASS=password
+MYSQL_HOSTNAME=database
+MYSQL_PORTNAME=3306
 ```
 
 Or you can copy an example from .env-example file.
