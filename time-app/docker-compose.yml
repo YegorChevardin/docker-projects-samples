@@ -2,12 +2,13 @@ version: '3'
 services:
   mysql:
     image: mysql
+    container_name: ${MYSQL_HOSTNAME}
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASS}
       MYSQL_DATABASE: ${MYSQL_DB_NAME}
       MYSQL_USER: ${MYSQL_USERNAME}
       MYSQL_PASSWORD: ${MYSQL_PASS}
-      MYSQL_TCP_PORT: '3306'
+      MYSQL_TCP_PORT: ${MYSQL_PORTNAME}
     volumes:
       - mysql_volume:/var/lib/mysql
     restart: always
@@ -30,11 +31,11 @@ services:
       - /app/node_modules
       - ./api:/app
     environment:
-      MYSQL_HOST: mysql
+      MYSQL_HOST: ${MYSQL_HOSTNAME}
       MYSQL_DB: ${MYSQL_DB_NAME}
       MYSQL_USER: ${MYSQL_USERNAME}
       MYSQL_PASS: ${MYSQL_PASS}
-      MYSQL_PORT: '3306'
+      MYSQL_PORT: ${MYSQL_PORTNAME}
   adminer:
     ports: 
       - '8080:8080'
